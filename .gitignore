@@ -1,22 +1,8 @@
-# VS Code settings
-.vscode/
-
-# Java compiled files
 *.class
 *.jar
 *.log
-
-# OS generated files
-.DS_Store
-
-# IDE files
-*.iml
-.idea/
-
-# Build folders
-target/
+.vscode/
 bin/
-doc/
+target/
 out/
 build/
-dist/
