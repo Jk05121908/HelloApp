@@ -9,13 +9,15 @@ public class HelloApp {
             StringBuilder sb = new StringBuilder();
 
             for (String name : args) {
-                if (sb.length() > 0) {
-                    sb.append(", ");
-                }
-                sb.append(name);
+                sb.append(name).append(", ");
             }
 
-            result = sb.toString();
+            // remove last ", "
+            if (sb.length() > 0) {
+                result = sb.substring(0, sb.length() - 2);
+            } else {
+                result = "";
+            }
         }
 
         System.out.println("Hello, " + result + "!");
