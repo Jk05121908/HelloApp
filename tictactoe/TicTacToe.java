@@ -1,51 +1,65 @@
+import java.util.Scanner;
 import java.util.Random;
 
 public class TicTacToe {
+
+    static char[][] board = new char[3][3];
+    static char human;
+    static char computer;
+    static char currentPlayer;
+
     public static void main(String[] args) {
 
-        // ===== UC1: Create and print empty board =====
-        char[][] board = new char[3][3];
+        initializeBoard();
+        toss();
 
-        // Initialize board
+        printBoard();
+
+        int slot = getUserInput();
+        System.out.println("You selected slot: " + slot);
+    }
+
+    // UC1: Initialize Board
+    public static void initializeBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = '-';
             }
         }
+    }
 
-        // Print board
-        System.out.println("Tic Tac Toe Board:");
+    // UC1: Print Board
+    public static void printBoard() {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
+            System.out.println(board[i][0] + " " + board[i][1] + " " + board[i][2]);
         }
+    }
 
-        // ===== UC2: Toss for first player =====
-        Random random = new Random();
-
-        // 0 = Player, 1 = Computer
-        int toss = random.nextInt(2);
-
-        char playerSymbol;
-        char computerSymbol;
-        String currentPlayer;
+    // UC2: Toss
+    public static void toss() {
+        Random rand = new Random();
+        int toss = rand.nextInt(2);
 
         if (toss == 0) {
-            playerSymbol = 'X';
-            computerSymbol = 'O';
-            currentPlayer = "Player";
+            human = 'X';
+            computer = 'O';
+            currentPlayer = human;
+            System.out.println("You won the toss! You are X");
         } else {
-            playerSymbol = 'O';
-            computerSymbol = 'X';
-            currentPlayer = "Computer";
+            human = 'O';
+            computer = 'X';
+            currentPlayer = computer;
+            System.out.println("Computer won the toss! You are O");
         }
+    }
 
-        // Display result
-        System.out.println("\n--- Toss Result ---");
-        System.out.println("Player Symbol: " + playerSymbol);
-        System.out.println("Computer Symbol: " + computerSymbol);
-        System.out.println(currentPlayer + " will start first!");
+    // UC3: User Input
+    public static int getUserInput() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a slot (1-9): ");
+        int slot = sc.nextInt();
+
+        return slot;
     }
 }
