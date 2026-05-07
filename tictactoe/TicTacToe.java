@@ -4,9 +4,11 @@ import java.util.Random;
 public class TicTacToe {
 
     static char[][] board = new char[3][3];
+
     static char human;
     static char computer;
-    static char currentPlayer;
+
+    static Random rand = new Random();
 
     public static void main(String[] args) {
 
@@ -16,6 +18,7 @@ public class TicTacToe {
 
         printBoard();
 
+        // Human move
         int slot = getUserInput();
 
         int[] pos = getRowCol(slot);
@@ -23,44 +26,59 @@ public class TicTacToe {
         int row = pos[0];
         int col = pos[1];
 
-        boolean valid = isValidMove(row, col);
+        if (isValidMove(row, col)) {
 
-        if (valid) {
-
-            placeMove(row, col, currentPlayer);
-
-            printBoard();
+            placeMove(row, col, human);
 
         } else {
 
             System.out.println("Invalid Move");
         }
+
+        printBoard();
+
+        // Computer move
+        computerMove();
+
+        printBoard();
     }
 
-    
+    // Initialize board
     public static void initializeBoard() {
 
-        for (int i = 0; i < 3; i++) {
+        for (int row = 0; row < 3; row++) {
 
-            for (int j = 0; j < 3; j++) {
+            for (int col = 0; col < 3; col++) {
 
-                board[i][j] = '-';
+                board[row][col] = '-';
             }
         }
     }
 
+    // Print board properly
     public static void printBoard() {
 
-        for (int i = 0; i < 3; i++) {
+        System.out.println("-------------");
 
-            System.out.println(board[i][0] + " " + board[i][1] + " " + board[i][2]);
+        for (int row = 0; row < 3; row++) {
+
+            System.out.print("| ");
+
+            for (int col = 0; col < 3; col++) {
+
+                System.out.print(board[row][col] + " | ");
+            }
+
+            System.out.println();
+
+            System.out.println("-------------");
         }
+
+        System.out.println();
     }
 
-   
+    // Toss
     public static void toss() {
-
-        Random rand = new Random();
 
         int toss = rand.nextInt(2);
 
@@ -68,33 +86,29 @@ public class TicTacToe {
 
             human = 'X';
             computer = 'O';
-            currentPlayer = human;
 
-            System.out.println("You won the toss! You are X");
+            System.out.println("You won toss. You are X");
 
         } else {
 
             human = 'O';
             computer = 'X';
-            currentPlayer = computer;
 
-            System.out.println("Computer won the toss! You are O");
+            System.out.println("Computer won toss. You are O");
         }
     }
 
-    
+    // User input
     public static int getUserInput() {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a slot (1-9): ");
+        System.out.print("Enter slot (1-9): ");
 
-        int slot = sc.nextInt();
-
-        return slot;
+        return sc.nextInt();
     }
 
-   
+    // Convert slot to row and column
     public static int[] getRowCol(int slot) {
 
         int row = (slot - 1) / 3;
@@ -104,23 +118,46 @@ public class TicTacToe {
         return new int[]{row, col};
     }
 
-   
+    // Validate move
     public static boolean isValidMove(int row, int col) {
 
-        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
-
-            if (board[row][col] == '-') {
-
-                return true;
-            }
-        }
-
-        return false;
+        return row >= 0 &&
+               row < 3 &&
+               col >= 0 &&
+               col < 3 &&
+               board[row][col] == '-';
     }
 
-    
+    // Place move
     public static void placeMove(int row, int col, char symbol) {
 
         board[row][col] = symbol;
+    }
+
+    // Computer random move
+    public static void computerMove() {
+
+        int slot;
+        int row;
+        int col;
+
+        while (true) {
+
+            slot = rand.nextInt(9) + 1;
+
+            int[] pos = getRowCol(slot);
+
+            row = pos[0];
+            col = pos[1];
+
+            if (isValidMove(row, col)) {
+
+                placeMove(row, col, computer);
+
+                System.out.println("Computer chose slot: " + slot);
+
+                break;
+            }
+        }
     }
 }
