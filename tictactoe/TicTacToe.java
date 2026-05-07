@@ -23,7 +23,16 @@ public class TicTacToe {
         int row = pos[0];
         int col = pos[1];
 
-        System.out.println("Row: " + row + ", Col: " + col);
+        boolean valid = isValidMove(row, col);
+
+        if (valid) {
+
+            System.out.println("Valid Move");
+
+        } else {
+
+            System.out.println("Invalid Move");
+        }
     }
 
     // UC1: Initialize Board
@@ -34,7 +43,6 @@ public class TicTacToe {
             for (int j = 0; j < 3; j++) {
 
                 board[i][j] = '-';
-
             }
         }
     }
@@ -45,7 +53,6 @@ public class TicTacToe {
         for (int i = 0; i < 3; i++) {
 
             System.out.println(board[i][0] + " " + board[i][1] + " " + board[i][2]);
-
         }
     }
 
@@ -94,5 +101,19 @@ public class TicTacToe {
         int col = (slot - 1) % 3;
 
         return new int[]{row, col};
+    }
+
+    // UC5: Validate move
+    public static boolean isValidMove(int row, int col) {
+
+        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+
+            if (board[row][col] == '-') {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
