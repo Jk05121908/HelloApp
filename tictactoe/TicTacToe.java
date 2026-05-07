@@ -27,7 +27,9 @@ public class TicTacToe {
 
         if (valid) {
 
-            System.out.println("Valid Move");
+            placeMove(row, col, currentPlayer);
+
+            printBoard();
 
         } else {
 
@@ -35,7 +37,7 @@ public class TicTacToe {
         }
     }
 
-    // UC1: Initialize Board
+    
     public static void initializeBoard() {
 
         for (int i = 0; i < 3; i++) {
@@ -47,7 +49,6 @@ public class TicTacToe {
         }
     }
 
-    // UC1: Print Board
     public static void printBoard() {
 
         for (int i = 0; i < 3; i++) {
@@ -56,7 +57,7 @@ public class TicTacToe {
         }
     }
 
-    // UC2: Toss
+   
     public static void toss() {
 
         Random rand = new Random();
@@ -81,7 +82,7 @@ public class TicTacToe {
         }
     }
 
-    // UC3: User Input
+    
     public static int getUserInput() {
 
         Scanner sc = new Scanner(System.in);
@@ -93,7 +94,7 @@ public class TicTacToe {
         return slot;
     }
 
-    // UC4: Convert slot to row and column
+   
     public static int[] getRowCol(int slot) {
 
         int row = (slot - 1) / 3;
@@ -103,7 +104,7 @@ public class TicTacToe {
         return new int[]{row, col};
     }
 
-    // UC5: Validate move
+   
     public static boolean isValidMove(int row, int col) {
 
         if (row >= 0 && row < 3 && col >= 0 && col < 3) {
@@ -115,5 +116,11 @@ public class TicTacToe {
         }
 
         return false;
+    }
+
+    
+    public static void placeMove(int row, int col, char symbol) {
+
+        board[row][col] = symbol;
     }
 }
