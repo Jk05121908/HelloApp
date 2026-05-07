@@ -76,7 +76,7 @@ public class TicTacToe {
                 }
             }
 
-            if (isBoardFull() && !gameOver) {
+            if (isDraw() && !gameOver) {
 
                 printBoard();
 
@@ -87,7 +87,6 @@ public class TicTacToe {
         }
     }
 
-    // Initialize board
     public static void initializeBoard() {
 
         for (int row = 0; row < 3; row++) {
@@ -99,7 +98,6 @@ public class TicTacToe {
         }
     }
 
-    // Print board
     public static void printBoard() {
 
         System.out.println("-------------");
@@ -121,7 +119,6 @@ public class TicTacToe {
         System.out.println();
     }
 
-    // Toss
     public static void toss() {
 
         int toss = rand.nextInt(2);
@@ -144,7 +141,6 @@ public class TicTacToe {
         }
     }
 
-    // Get row and column
     public static int[] getRowCol(int slot) {
 
         int row = (slot - 1) / 3;
@@ -154,7 +150,6 @@ public class TicTacToe {
         return new int[]{row, col};
     }
 
-    // Validate move
     public static boolean isValidMove(int row, int col) {
 
         return row >= 0 &&
@@ -164,13 +159,11 @@ public class TicTacToe {
                board[row][col] == '-';
     }
 
-    // Place move
     public static void placeMove(int row, int col, char symbol) {
 
         board[row][col] = symbol;
     }
 
-    // Computer move
     public static void computerMove() {
 
         int slot;
@@ -197,10 +190,8 @@ public class TicTacToe {
         }
     }
 
-    // UC9: Check win
     public static boolean hasWon(char symbol) {
 
-        // Check rows
         for (int row = 0; row < 3; row++) {
 
             if (board[row][0] == symbol &&
@@ -211,7 +202,6 @@ public class TicTacToe {
             }
         }
 
-        // Check columns
         for (int col = 0; col < 3; col++) {
 
             if (board[0][col] == symbol &&
@@ -222,7 +212,6 @@ public class TicTacToe {
             }
         }
 
-        // Check diagonal
         if (board[0][0] == symbol &&
             board[1][1] == symbol &&
             board[2][2] == symbol) {
@@ -230,7 +219,6 @@ public class TicTacToe {
             return true;
         }
 
-        // Check opposite diagonal
         if (board[0][2] == symbol &&
             board[1][1] == symbol &&
             board[2][0] == symbol) {
@@ -241,14 +229,13 @@ public class TicTacToe {
         return false;
     }
 
-    // Check draw
-    public static boolean isBoardFull() {
+    public static boolean isDraw() {
 
-        for (int row = 0; row < 3; row++) {
+        for (int r = 0; r < 3; r++) {
 
-            for (int col = 0; col < 3; col++) {
+            for (int c = 0; c < 3; c++) {
 
-                if (board[row][col] == '-') {
+                if (board[r][c] == '-') {
 
                     return false;
                 }
